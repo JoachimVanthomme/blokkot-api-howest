@@ -20,10 +20,11 @@ class LocationController extends Controller
         return $this->_service->all($pages);
     }
 
-    public function find($id)
+    public function find(Request $request, $id)
     {
-        $data = $this->_service->find($id);
-        return ["data"=>$data];
+        $data = $request->all();
+        $location = $this->_service->find($id, $data['language']);
+        return ["data"=>$location];
     }
 
     public function findByCity($city)

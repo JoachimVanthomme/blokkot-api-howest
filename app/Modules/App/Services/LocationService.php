@@ -31,10 +31,11 @@ class LocationService extends Service
         return $this->_model->paginate($pages)->withQueryString();
     }
 
-    public function find($id)
+    public function find($id, $language)
     {
         return $this->_model->find($id)
             ->join('locations_language', 'locations.id', '=', 'locations_language.location_id')
+            ->where('locations_language.language', $language)
             ->get();
     }
 
