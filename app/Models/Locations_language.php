@@ -15,9 +15,4 @@ class Locations_language extends Model
         'hours',
         'info',
     ];
-
-    public function location()
-    {
-        return $this->belongsTo(Location::class, 'location_id', 'id');
-    }
 }

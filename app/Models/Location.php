@@ -18,9 +18,4 @@ class Location extends Model
     {
         return $this->hasMany(Owner::class, 'location_id', 'id');
     }
-
-    public function Locations_languages()
-    {
-        return $this->hasMany(Locations_language::class, 'location_id', 'id');
-    }
 }
