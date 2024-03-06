@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\FavouriteController;
 use App\Http\Controllers\LocationController;
+use App\Http\Controllers\OwnerController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -19,4 +21,19 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get("/locations", [LocationController::class, "all"]);
+Route::middleware(['auth:sanctum','verified'])->group(function () {
+    Route::get("/locations", [LocationController::class, "all"]);
+    Route::get("/locations/{id}", [LocationController::class, "find"]);
+    Route::post("/locations", [LocationController::class, "add"]);
+    Route::put("/locations/{id}", [LocationController::class, "update"]);
+    Route::delete("/locations/{id}", [LocationController::class, "delete"]);
+    Route::get("/locations/{city}", [LocationController::class, "findByCity"]);
+
+    Route::get('/favourites', [FavouriteController::class, 'findByUser']);
+    Route::post('/favourites', [FavouriteController::class, 'add']);
+    Route::delete('/favourites/{id}', [FavouriteController::class, 'delete']);
+
+    Route::get('/owners', [OwnerController::class, 'findByUser']);
+    Route::post('/owners', [OwnerController::class, 'add']);
+    Route::delete('/owners/{id}', [OwnerController::class, 'delete']);
+});

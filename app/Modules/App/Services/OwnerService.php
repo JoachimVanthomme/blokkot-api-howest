@@ -17,9 +17,9 @@ class OwnerService extends Service
         parent::__construct($model);
     }
 
-    public function findByUser($id)
+    public function findByUser($data)
     {
-        return $this->_model->where('user_id', $id)->get();
+        return $this->_model->where('user_id', $data['user_id'])->get();
     }
 
     public function add($data)
