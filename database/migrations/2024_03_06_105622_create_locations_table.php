@@ -18,12 +18,19 @@ return new class extends Migration
             $table->string('street_number');
             $table->string('postcode');
             $table->string('city');
-            $table->text('hours');
             $table->integer('capacity');
-            $table->text('info');
             $table->boolean('is_reservation_mandatory')->default(false);
             $table->string('image_path', 1000);
             $table->string('reservation_link', 1000);
+            $table->timestamps();
+        });
+
+        Schema::create('locations_languages', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('location_id')->constrained();
+            $table->string('language');
+            $table->text('hours');
+            $table->text('info');
             $table->timestamps();
         });
     }
@@ -34,5 +41,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('locations');
+        Schema::dropIfExists('locations_languages');
     }
 };
