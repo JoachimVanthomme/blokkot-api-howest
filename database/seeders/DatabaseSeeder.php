@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Favourite;
 use App\Models\Location;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -24,5 +24,12 @@ class DatabaseSeeder extends Seeder
             ]);
 
         Location::factory(10)->create();
+
+        while (Favourite::count() < 25) {
+            $favourite = Favourite::factory()->make();
+            if (!Favourite::where('user_id', $favourite->user_id)->where('location_id', $favourite->location_id)->exists()) {
+                $favourite->save();
+            }
+        }
     }
 }
