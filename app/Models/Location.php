@@ -8,4 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Location extends Model
 {
     use HasFactory;
+
+    public function Favourites()
+    {
+        return $this->hasMany(Favourite::class, 'location_id', 'id');
+    }
+
+    public function Owners()
+    {
+        return $this->hasMany(Owner::class, 'location_id', 'id');
+    }
 }
