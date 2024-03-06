@@ -33,7 +33,9 @@ class LocationService extends Service
 
     public function find($id)
     {
-        return $this->_model->find($id);
+        return $this->_model->find($id)
+            ->join('locations_language', 'locations.id', '=', 'locations_language.location_id')
+            ->get();
     }
 
     public function findByCity($city)

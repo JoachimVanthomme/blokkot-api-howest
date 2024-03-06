@@ -19,7 +19,7 @@ class OwnerService extends Service
 
     public function findByUser($data)
     {
-        return $this->_model->where('user_id', $data['user_id'])->get();
+        return $this->_model->where('user_id', $data['user_id'])->with('location')->get();
     }
 
     public function add($data)
