@@ -36,6 +36,11 @@ class LocationService extends Service
         return $this->_model->find($id);
     }
 
+    public function findByCity($city)
+    {
+        return $this->_model->where('city', $city)->get();
+    }
+
     public function add($data)
     {
         $this->validate($data);
