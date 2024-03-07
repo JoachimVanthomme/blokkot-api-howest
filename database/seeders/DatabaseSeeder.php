@@ -4,8 +4,10 @@ namespace Database\Seeders;
 
 use App\Models\Favourite;
 use App\Models\Location;
+use App\Models\Locations_language;
 use App\Models\Owner;
 use App\Models\User;
+use Database\Factories\Locations_languageFactory;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -40,5 +42,19 @@ class DatabaseSeeder extends Seeder
                 $owner->save();
             }
         }
+
+        Locations_language::factory()->create([
+            'location_id' => 1,
+            'language' => 'en',
+            'hours' => 'Opening hours in english',
+            'info' => 'Info in english',
+        ]);
+
+        Locations_language::factory()->create([
+            'location_id' => 1,
+            'language' => 'nl',
+            'hours' => 'Openingsuren in het nederlands',
+            'info' => 'Informatie in het nederlands',
+        ]);
     }
 }

@@ -25,7 +25,7 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        Schema::create('locations_language', function (Blueprint $table) {
+        Schema::create('locations_languages', function (Blueprint $table) {
             $table->id();
             $table->foreignId('location_id')->constrained();
             $table->string('language');

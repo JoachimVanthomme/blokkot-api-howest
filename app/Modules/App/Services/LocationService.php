@@ -34,8 +34,8 @@ class LocationService extends Service
     public function find($id, $language)
     {
         return $this->_model->find($id)
-            ->join('locations_language', 'locations.id', '=', 'locations_language.location_id')
-            ->where('locations_language.language', $language)
+            ->join('locations_languages', 'locations.id', '=', 'locations_languages.location_id')
+            ->where('locations_languages.language', $language)
             ->get();
     }
 
