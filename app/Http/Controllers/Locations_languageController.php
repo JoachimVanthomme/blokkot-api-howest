@@ -23,4 +23,23 @@ class Locations_languageController extends Controller
         }
         return ["data"=>$locationLanguage];
     }
+
+    public function update($id, Request $request)
+    {
+        $data = $request->all();
+        $locationLanguage = $this->_service->update($id, $data);
+        if($this->_service->hasErrors()) {
+            return ["errors"=>$this->_service->getErrors()];
+        }
+        return ["data"=>$locationLanguage];
+    }
+
+    public function delete($location_id)
+    {
+        $locationLanguage = $this->_service->delete($location_id);
+        if($this->_service->hasErrors()) {
+            return ["errors"=>$this->_service->getErrors()];
+        }
+        return ["data"=>$locationLanguage];
+    }
 }

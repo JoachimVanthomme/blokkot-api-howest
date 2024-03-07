@@ -33,8 +33,20 @@ class Locations_languageService extends Service
         return $locationLanguage;
     }
 
-    public function delete($id) {
-        $locationLanguage = $this->_model->find($id)->delete();
+    public function update($id, $data)
+    {
+        $this->validate($data);
+        if ($this->haserrors()) {
+            return;
+        }
+        $locationLanguage = $this->_model->find($id)->update($data);
+        return $locationLanguage;
+    }
+
+    public function delete($location_id) {
+        $locationLanguage = $this->_model
+            ->where('location_id', $location_id)
+            ->delete();
         return $locationLanguage;
     }
 }
