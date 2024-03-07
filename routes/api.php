@@ -21,20 +21,21 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get("/locations/{id}", [LocationController::class, "find"]);
-Route::get('/favourites', [FavouriteController::class, 'findByUser']);
-Route::get('/owners', [OwnerController::class, 'findByUser']);
 
 //Route::middleware(['auth:sanctum','verified'])->group(function () {
-    Route::get("/locations", [LocationController::class, "all"]);
+    Route::get("/locations/{id}", [LocationController::class, "find"]);
+    Route::get("/locations", [LocationController::class, "all"]); //only show language dependant data on detail request
     Route::post("/locations", [LocationController::class, "add"]);
+    //Route::post("locations/language", [Locations_languageController::class, "add"];
     Route::put("/locations/{id}", [LocationController::class, "update"]);
     Route::delete("/locations/{id}", [LocationController::class, "delete"]);
-    Route::get("/locations/{city}", [LocationController::class, "findByCity"]);
+    Route::get("/locations/city/{city}", [LocationController::class, "findByCity"]);
 
+    Route::get('/favourites', [FavouriteController::class, 'findByUser']);
     Route::post('/favourites', [FavouriteController::class, 'add']);
     Route::delete('/favourites/{id}', [FavouriteController::class, 'delete']);
 
+    Route::get('/owners', [OwnerController::class, 'findByUser']);
     Route::post('/owners', [OwnerController::class, 'add']);
     Route::delete('/owners/{id}', [OwnerController::class, 'delete']);
 //});
