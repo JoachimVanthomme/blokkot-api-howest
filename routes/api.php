@@ -23,8 +23,9 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 
 Route::get("/locations/{id}", [LocationController::class, "find"]);
 Route::get('/favourites', [FavouriteController::class, 'findByUser']);
+Route::get('/owners', [OwnerController::class, 'findByUser']);
 
-Route::middleware(['auth:sanctum','verified'])->group(function () {
+//Route::middleware(['auth:sanctum','verified'])->group(function () {
     Route::get("/locations", [LocationController::class, "all"]);
     Route::post("/locations", [LocationController::class, "add"]);
     Route::put("/locations/{id}", [LocationController::class, "update"]);
@@ -34,7 +35,6 @@ Route::middleware(['auth:sanctum','verified'])->group(function () {
     Route::post('/favourites', [FavouriteController::class, 'add']);
     Route::delete('/favourites/{id}', [FavouriteController::class, 'delete']);
 
-    Route::get('/owners', [OwnerController::class, 'findByUser']);
     Route::post('/owners', [OwnerController::class, 'add']);
     Route::delete('/owners/{id}', [OwnerController::class, 'delete']);
-});
+//});

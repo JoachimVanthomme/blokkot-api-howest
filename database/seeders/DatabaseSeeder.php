@@ -35,8 +35,7 @@ class DatabaseSeeder extends Seeder
 
         while (Owner::count() < 5) {
             $owner = Owner::factory()->make();
-            if (!Owner::where('user_id', $owner->user_id)
-                    ->where('location_id', $owner->location_id)
+            if (!Owner::where('location_id', $owner->location_id)
                     ->exists() && Owner::where($owner->is_admin === true)) {
                 $owner->save();
             }
