@@ -23,7 +23,7 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 });
 
 
-//Route::middleware(['auth:sanctum','verified'])->group(function () {
+//Route::middleware(['auth:sanctum','verified', 'language'])->group(function () {
     //Locations routes
     Route::get("/locations/{id}", [LocationController::class, "find"]);
     Route::get("/locations", [LocationController::class, "all"]); //only show language dependant data on detail request
