@@ -24,6 +24,7 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 
 
 //Route::middleware(['auth:sanctum','verified', 'language'])->group(function () {
+Route::middleware(['language'])->group(function () {
     //Locations routes
     Route::get("/locations/{id}", [LocationController::class, "find"]);
     Route::get("/locations", [LocationController::class, "all"]); //only show language dependant data on detail request
@@ -49,4 +50,4 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     Route::get('/owners', [OwnerController::class, 'findByUser']);
     Route::post('/owners', [OwnerController::class, 'add']);
     Route::delete('/owners/{id}', [OwnerController::class, 'delete']);
-//});
+});
