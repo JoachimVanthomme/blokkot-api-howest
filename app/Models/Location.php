@@ -9,6 +9,23 @@ class Location extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name',
+        'street',
+        'street_number',
+        'postcode',
+        'city',
+        'capacity',
+        'is_reservation_mandatory',
+        'image_path',
+        'reservation_link',
+    ];
+
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+    ];
+
     public function Favourites()
     {
         return $this->hasMany(Favourite::class, 'location_id', 'id');

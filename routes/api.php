@@ -37,7 +37,7 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     Route::delete("/locations/{id}", [LocationController::class, "delete"]);
     Route::delete("/locations/language/{location_id}", [Locations_languageController::class, "delete"]);
 
-    Route::get("/locations/city/{city}", [LocationController::class, "findByCity"]);
+    Route::get("/locations/city", [LocationController::class, "findByCity"]);
 
 
     //Favourites routes

@@ -9,8 +9,8 @@ class Locations_languageService extends Service
     protected $_rules = [
         'location_id' => 'required|integer',
         'language' => 'required|string',
-        'hours' => 'required|string',
-        'info' => 'required|string',
+        'hours' => 'required|text',
+        'info' => 'required|text',
     ];
 
     public function __construct(Locations_language $model)
