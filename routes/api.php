@@ -30,7 +30,7 @@ Route::middleware(['language'])->group(function () {
     Route::get("/locations", [LocationController::class, "all"]); //only show language dependant data on detail request
 
     Route::post("/locations", [LocationController::class, "add"]);
-    Route::post("/locations/language", [Locations_languageController::class, "add"]);
+    Route::post("/language", [Locations_languageController::class, "add"]); //add language to existing location
 
     Route::put("/locations/{id}", [LocationController::class, "update"]);
     Route::put("/locations/language/{id}", [Locations_languageController::class, "update"]);
@@ -38,8 +38,7 @@ Route::middleware(['language'])->group(function () {
     Route::delete("/locations/{id}", [LocationController::class, "delete"]);
     Route::delete("/locations/language/{location_id}", [Locations_languageController::class, "delete"]);
 
-    Route::get("/locations/city", [LocationController::class, "findByCity"]);
-
+    Route::get("/locations_city", [LocationController::class, "findByCity"]);
 
     //Favourites routes
     Route::get('/favourites', [FavouriteController::class, 'findByUser']);

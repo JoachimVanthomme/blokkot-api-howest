@@ -3,6 +3,7 @@
 namespace App\Modules\App\Services;
 
 use App\Models\Location;
+use App\Models\Locations_language;
 use App\Modules\Core\Services\Service;
 
 class LocationService extends Service
@@ -21,9 +22,12 @@ class LocationService extends Service
         'reservation_link' => 'required|string',
     ];
 
+    private $_locations_languageModel;
+
     public function __construct(Location $model)
     {
         parent::__construct($model);
+        $this->_locations_languageModel = new Locations_language();
     }
 
     public function all($pages)
@@ -41,24 +45,30 @@ class LocationService extends Service
 
     public function findByCity($city)
     {
-        return $this->_model->where('city', $city)->get();
+        return $this->_model->where('city', 'LIKE', "%{$city}%")->get();
     }
 
-    public function add($data)
+    public function add($data) : array
     {
         $this->validate($data);
         if ($this->haserrors()) {
-            return;
+            return $this->hasErrors();
         }
         $location = $this->_model->create($data);
-        return $location;
+        $location_language = $this->_locations_languageModel->create([
+            'location_id' => $location->id,
+            'language' => $data['language'],
+            'hours' => $data['hours'],
+            'info' => $data['info'],
+        ]);
+        return [$location, $location_language];
     }
 
     public function update($id, $data)
     {
         $this->validate($data);
         if ($this->haserrors()) {
-            return;
+            return $this->hasErrors();
         }
         $location = $this->_model->find($id)->update($data);
         return $location;
