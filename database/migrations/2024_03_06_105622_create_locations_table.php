@@ -22,12 +22,13 @@ return new class extends Migration
             $table->boolean('is_reservation_mandatory')->default(false);
             $table->string('image_path', 1000);
             $table->string('reservation_link', 1000);
+            $table->boolean('is_active');
             $table->timestamps();
         });
 
         Schema::create('locations_languages', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('location_id')->constrained();
+            $table->foreignId('location_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->string('language');
             $table->text('hours');
             $table->text('info');

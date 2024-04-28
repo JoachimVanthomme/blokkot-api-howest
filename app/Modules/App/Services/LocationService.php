@@ -37,7 +37,7 @@ class LocationService extends Service
 
     public function find($id)
     {
-        return $this->_model->find($id)
+        return $this->_model->where('locations.id', $id)
             ->join('locations_languages', 'locations.id', '=', 'locations_languages.location_id')
             ->where('locations_languages.language', app()->getLocale())
             ->get();
@@ -55,13 +55,16 @@ class LocationService extends Service
             return $this->hasErrors();
         }
         $location = $this->_model->create($data);
-        $location_language = $this->_locations_languageModel->create([
-            'location_id' => $location->id,
-            'language' => $data['language'],
-            'hours' => $data['hours'],
-            'info' => $data['info'],
-        ]);
-        return [$location, $location_language];
+
+        foreach ($data['languages'] as $language) {
+           $this->_locations_languageModel->create([
+                'location_id' => $location->id,
+                'language' => $language['language'],
+                'hours' => $language['hours'],
+                'info' => $language['info'],
+            ]);
+        }
+        return [$location];
     }
 
     public function update($id, $data)

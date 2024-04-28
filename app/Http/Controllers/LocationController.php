@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 class LocationController extends Controller
 {
     private $_service;
-    //private Locations_languageController $locations_languageController;
 
     public function __construct(LocationService $service)
     {
@@ -36,14 +35,6 @@ class LocationController extends Controller
 
     public function add(Request $request) : array
     {
-        //$data = $request->all();
-        //$location = $this->_service->add($data);
-        //$locations_languageController = $this->locations_languageController->add($request);
-        //if($this->_service->hasErrors() || $locations_languageController->hasErrors()) {
-        //    return ["Location errors"=>$this->_service->getErrors(), "Language erros"=>$locations_languageController->getErrors()];
-        //}
-        //return ["data"=>$location];
-
         $data = $request->all();
         $location = $this->_service->add($data);
         if($this->_service->hasErrors()) {

@@ -18,10 +18,11 @@ class Locations_languageService extends Service
         parent::__construct($model);
     }
 
-    public function findByLanguage($language)
-    {
-        return $this->_model->where('language', $language)->get();
-    }
+    //When is this usefull?
+    //public function findByLanguage($language)
+    //{
+    //    return $this->_model->where('language', $language)->get();
+    //}
 
     public function add($data)
     {

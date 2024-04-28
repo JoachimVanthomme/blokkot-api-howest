@@ -13,8 +13,9 @@ return new class extends Migration
     {
         Schema::create('favourites', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained();
-            $table->foreignId('location_id')->constrained();
+            $table->foreignId('user_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('location_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
+            $table->unique(['user_id', 'location_id']); //unique pair of user_id and location_id
             $table->timestamps();
         });
     }
