@@ -22,6 +22,7 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::get("/images/{image_path}", [LocationController::class, "findImageByName"]); //get an image by name
 
 //Route::middleware(['auth:sanctum','verified', 'language'])->group(function () {
 Route::middleware(['language'])->group(function () {

@@ -48,7 +48,7 @@ class LocationService extends Service
         return $this->_model->where('city', 'LIKE', "%{$city}%")->get();
     }
 
-    public function add($data) : array
+    public function add($data)
     {
         $this->validate($data);
         if ($this->haserrors()) {
@@ -57,6 +57,10 @@ class LocationService extends Service
 
         if (isset($data['image'])) {
             $data['image_path'] = $data['image']->store();
+        }
+
+        else {
+            $data['image_path'] = 'default.jpg';
         }
 
         $location = $this->_model->create($data);
@@ -86,18 +90,32 @@ class LocationService extends Service
 
         $location = $this->_model->find($id)->update($data);
 
-        foreach ($data['languages'] as $language) {
-            $this->_locations_languageModel->updateOrCreate(
-                ['location_id' => $id, 'language' => $language['language']],
-                ['hours' => $language['hours'], 'info' => $language['info']]
-            );
+        if (isset($data['languages'])) {
+            foreach ($data['languages'] as $language) {
+                $this->_locations_languageModel->updateOrCreate(
+                    ['location_id' => $id, 'language' => $language['language']],
+                    ['hours' => $language['hours'], 'info' => $language['info']]
+                );
+            }
         }
 
-        return $location;
+        return [$location];
     }
 
     public function delete($id) {
+        Storage::delete($this->_model->find($id)->image_path);
         $location = $this->_model->find($id)->delete();
         return $location;
+    }
+
+    public function findImageByName($image_path)
+    {
+        $this->validate(['image_path' => $image_path]);
+
+        if ($this->hasErrors()) {
+            return $this->getErrors();
+        }
+
+        return $image_path;
     }
 }

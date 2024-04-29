@@ -61,4 +61,21 @@ class LocationController extends Controller
         }
         return ["data"=>$location];
     }
+
+    public function findImageByName($image_path)
+    {
+        $image = $this->_service->findImageByName($image_path);
+
+        if (!$image){
+            return response()->json(["error"=>"Image not found"], 404);
+        }
+
+        $path = storage_path('app/images/'.$image_path);
+
+        if (!file_exists($path)) {
+            return response()->json(['error' => 'Image not found in storage'], 404);
+        }
+
+        return response()->file($path);
+    }
 }
