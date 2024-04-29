@@ -9,6 +9,16 @@ class Owner extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'user_id',
+        'location_id',
+    ];
+
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+    ];
+
     public function Location()
     {
         return $this->belongsTo(Location::class, 'location_id', 'id');

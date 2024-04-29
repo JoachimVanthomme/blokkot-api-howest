@@ -28,12 +28,22 @@ class OwnerService extends Service
         if ($this->haserrors()) {
             return;
         }
-        $favourite = $this->_model->create($data);
-        return $favourite;
+
+        if ($this->_model->where('user_id', $data['user_id'])->where('location_id', $data['location_id'])->exists()) {
+            return ['error' => "Combination of user and location already exists."];
+        }
+
+        try {
+            $owner = $this->_model->create($data);
+        } catch (\Exception $e) {
+            return ['error' => "An error occurred, please try again later or contact the administrator."];
+        }
+
+        return $owner;
     }
 
     public function delete($id) {
-        $favourite = $this->_model->find($id)->delete();
-        return $favourite;
+        $owner = $this->_model->find($id)->delete();
+        return $owner;
     }
 }
