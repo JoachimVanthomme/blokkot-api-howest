@@ -5,6 +5,7 @@ namespace App\Modules\App\Services;
 use App\Models\Location;
 use App\Models\Locations_language;
 use App\Modules\Core\Services\Service;
+use Illuminate\Support\Facades\Storage;
 
 class LocationService extends Service
 {
@@ -77,6 +78,12 @@ class LocationService extends Service
         if ($this->haserrors()) {
             return $this->hasErrors();
         }
+
+        if (isset($data['image'])) {
+            Storage::delete($this->_model->find($id)->image_path);
+            $data['image_path'] = $data['image']->store();
+        }
+
         $location = $this->_model->find($id)->update($data);
 
         foreach ($data['languages'] as $language) {
