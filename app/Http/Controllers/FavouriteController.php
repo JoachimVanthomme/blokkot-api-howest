@@ -14,10 +14,10 @@ class FavouriteController extends Controller
         $this->_service = $service;
     }
 
-    public function findByUser(Request $request)
+    public function findByUser($id)
     {
-        $data = $request->all();
-        $data = $this->_service->findByUser($data);
+        //$data = $request->all();
+        $data = $this->_service->findByUser($id);
         return ["data"=>$data];
     }
 

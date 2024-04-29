@@ -17,9 +17,9 @@ class FavouriteService extends Service
         parent::__construct($model);
     }
 
-    public function findByUser($data)
+    public function findByUser($id)
     {
-        return $this->_model->where('user_id', $data['user_id'])->with('location')->get();
+        return $this->_model->where('user_id', $id)->with('location')->get();
     }
 
     public function add($data)

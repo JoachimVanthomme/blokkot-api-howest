@@ -39,12 +39,12 @@ Route::middleware(['language'])->group(function () {
     Route::get("/locations_city", [LocationController::class, "findByCity"]);
 
     //Favourites routes
-    Route::get('/favourites', [FavouriteController::class, 'findByUser']);
+    Route::get('/favourites/{id}', [FavouriteController::class, 'findByUser']);
     Route::post('/favourites', [FavouriteController::class, 'add']);
     Route::delete('/favourites/{id}', [FavouriteController::class, 'delete']);
 
     //Owners routes
-    Route::get('/owners', [OwnerController::class, 'findByUser']);
+    Route::get('/owners/{id}', [OwnerController::class, 'findByUser']);
     Route::post('/owners', [OwnerController::class, 'add']);
     Route::delete('/owners/{id}', [OwnerController::class, 'delete']);
 });
