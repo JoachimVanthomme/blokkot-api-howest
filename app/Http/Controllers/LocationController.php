@@ -78,4 +78,10 @@ class LocationController extends Controller
 
         return response()->file($path);
     }
+
+    public function mostLocations() : array
+    {
+        $data = $this->_service->mostLocations();
+        return ["data"=>$data];
+    }
 }

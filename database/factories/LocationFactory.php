@@ -28,6 +28,7 @@ class LocationFactory extends Factory
             'is_reservation_mandatory' => $this->faker->boolean(),
             'image_path' => $this->faker->imageUrl(),
             'reservation_link' => $this->faker->url(),
+            'is_active' => true,
         ];
     }
 }

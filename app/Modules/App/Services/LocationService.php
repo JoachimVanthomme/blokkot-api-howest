@@ -90,13 +90,11 @@ class LocationService extends Service
 
         $location = $this->_model->find($id)->update($data);
 
-        if (isset($data['languages'])) {
-            foreach ($data['languages'] as $language) {
-                $this->_locations_languageModel->updateOrCreate(
-                    ['location_id' => $id, 'language' => $language['language']],
-                    ['hours' => $language['hours'], 'info' => $language['info']]
-                );
-            }
+        foreach ($data['languages'] as $language) {
+            $this->_locations_languageModel->updateOrCreate(
+                ['location_id' => $id, 'language' => $language['language']],
+                ['hours' => $language['hours'], 'info' => $language['info']]
+            );
         }
 
         return [$location];
@@ -117,5 +115,10 @@ class LocationService extends Service
         }
 
         return $image_path;
+    }
+
+    public function mostLocations()
+    {
+        return $this->_model->select('city')->groupBy('city')->orderByRaw('COUNT(city) DESC')->limit(3)->get();
     }
 }

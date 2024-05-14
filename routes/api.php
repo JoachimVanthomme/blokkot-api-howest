@@ -24,6 +24,8 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 
 Route::get("/images/{image_path}", [LocationController::class, "findImageByName"]); //get an image by name
 
+Route::get("/locations/most-locations", [LocationController::class, "mostLocations"]);
+
 //Route::middleware(['auth:sanctum','verified', 'language'])->group(function () {
 Route::middleware(['language'])->group(function () {
     //Locations routes
@@ -36,15 +38,15 @@ Route::middleware(['language'])->group(function () {
 
     Route::delete("/locations/{id}", [LocationController::class, "delete"]);
 
-    Route::get("/locations_city", [LocationController::class, "findByCity"]);
+    Route::get("/locations-city", [LocationController::class, "findByCity"]);
 
     //Favourites routes
     Route::get('/favourites/{id}', [FavouriteController::class, 'findByUser']);
     Route::post('/favourites', [FavouriteController::class, 'add']);
-    Route::delete('/favourites/{id}', [FavouriteController::class, 'delete']);
+    Route::delete('/favourites/{user_id}/{location_id}', [FavouriteController::class, 'delete']);
 
     //Owners routes
     Route::get('/owners/{id}', [OwnerController::class, 'findByUser']);
     Route::post('/owners', [OwnerController::class, 'add']);
-    Route::delete('/owners/{id}', [OwnerController::class, 'delete']);
+    Route::delete('/owners/{user_id}/{location_id}', [OwnerController::class, 'delete']);
 });

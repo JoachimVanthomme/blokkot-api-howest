@@ -4,6 +4,7 @@ namespace App\Modules\App\Services;
 
 use App\Models\Owner;
 use App\Modules\Core\Services\Service;
+use Illuminate\Http\Response;
 
 class OwnerService extends Service
 {
@@ -19,7 +20,10 @@ class OwnerService extends Service
 
     public function findByUser($id)
     {
-        return $this->_model->where('user_id', $id)->with('location')->get();
+        return $this->_model->where('user_id', $id)
+            ->join('locations', 'owners.location_id', '=', 'locations.id')
+            ->select('locations.*')
+            ->get();
     }
 
     public function add($data)
@@ -42,8 +46,18 @@ class OwnerService extends Service
         return $owner;
     }
 
-    public function delete($id) {
-        $owner = $this->_model->find($id)->delete();
+    public function delete($user_id, $location_id)
+    {
+        if ($this->_model->where('user_id', $user_id)->where('location_id', $location_id)->doesntExist()) {
+            return ['error' => "Combination of user and location does not exist."];
+        }
+
+        try {
+            $owner = $this->_model->where('user_id', $user_id)->where('location_id', $location_id)->delete();
+        } catch (\Exception $e) {
+            return ['error' => "An error occurred, please try again later or contact the administrator."];
+        }
+
         return $owner;
     }
 }

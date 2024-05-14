@@ -30,9 +30,9 @@ class OwnerController extends Controller
         return ["data"=>$owner];
     }
 
-    public function delete($id)
+    public function delete($user_id, $location_id)
     {
-        $owner = $this->_service->delete($id);
+        $owner = $this->_service->delete($user_id, $location_id);
         if($this->_service->hasErrors()) {
             return ["errors"=>$this->_service->getErrors()];
         }

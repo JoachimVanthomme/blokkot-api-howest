@@ -9,6 +9,7 @@ use App\Models\Owner;
 use App\Models\User;
 use Database\Factories\Locations_languageFactory;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -23,7 +24,9 @@ class DatabaseSeeder extends Seeder
             'name' => 'Test User',
             'username' => 'testuser',
             'email' => 'test@example.com',
+            'password' => Hash::make('hash1234'),
             'is_admin' => false,
+            'is_developer' => true,
             ]);
 
         Location::factory(10)->create();
