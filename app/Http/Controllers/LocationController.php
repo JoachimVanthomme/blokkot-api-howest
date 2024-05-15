@@ -84,4 +84,10 @@ class LocationController extends Controller
         $data = $this->_service->mostLocations();
         return ["data"=>$data];
     }
+
+    public function allCities() : array
+    {
+        $data = $this->_service->allCities();
+        return ["data"=>$data];
+    }
 }

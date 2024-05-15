@@ -5,6 +5,7 @@ namespace App\Modules\App\Services;
 use App\Models\Location;
 use App\Models\Locations_language;
 use App\Modules\Core\Services\Service;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Storage;
 
 class LocationService extends Service
@@ -63,7 +64,15 @@ class LocationService extends Service
             $data['image_path'] = 'default.jpg';
         }
 
-        $location = $this->_model->create($data);
+        Arr::forget($data, 'image');
+
+        try {
+            $location = $this->_model->create($data);
+        } catch (\Exception $e) {
+            return ['error' => $e];
+        }
+
+
 
         foreach ($data['languages'] as $language) {
            $this->_locations_languageModel->create([
@@ -120,5 +129,10 @@ class LocationService extends Service
     public function mostLocations()
     {
         return $this->_model->select('city')->groupBy('city')->orderByRaw('COUNT(city) DESC')->limit(3)->get();
+    }
+
+    public function allCities()
+    {
+        return $this->_model->select('city')->groupBy('city')->get();
     }
 }

@@ -26,6 +26,8 @@ Route::get("/images/{image_path}", [LocationController::class, "findImageByName"
 
 Route::get("/locations/most-locations", [LocationController::class, "mostLocations"]);
 
+Route::get("/cities", [LocationController::class, "allCities"]);
+
 //Route::middleware(['auth:sanctum','verified', 'language'])->group(function () {
 Route::middleware(['language'])->group(function () {
     //Locations routes

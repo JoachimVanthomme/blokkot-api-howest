@@ -19,6 +19,8 @@ class Location extends Model
         'is_reservation_mandatory',
         'image_path',
         'reservation_link',
+        'is_active',
+        'image'
     ];
 
     protected $hidden = [
