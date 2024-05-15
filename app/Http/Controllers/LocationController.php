@@ -26,10 +26,9 @@ class LocationController extends Controller
         return ["data"=>$location];
     }
 
-    public function findByCity(Request $request) : array
+    public function findByCity($city) : array
     {
-        $data = $request->all();
-        $data = $this->_service->findByCity($data['city']);
+        $data = $this->_service->findByCity($city);
         return ["data"=>$data];
     }
 

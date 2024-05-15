@@ -40,7 +40,7 @@ Route::middleware(['language'])->group(function () {
 
     Route::delete("/locations/{id}", [LocationController::class, "delete"]);
 
-    Route::get("/locations-city", [LocationController::class, "findByCity"]);
+    Route::get("/locations-city/{city}", [LocationController::class, "findByCity"]);
 
     //Favourites routes
     Route::get('/favourites/{id}', [FavouriteController::class, 'findByUser']);
