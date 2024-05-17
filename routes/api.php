@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\FavouriteController;
 use App\Http\Controllers\LocationController;
-use App\Http\Controllers\Locations_languageController;
 use App\Http\Controllers\OwnerController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -34,7 +33,7 @@ Route::middleware(['language'])->group(function () {
     Route::get("/locations", [LocationController::class, "all"]); //only show language dependant data on detail request
     Route::get("/locations/{id}", [LocationController::class, "find"]);
 
-    Route::post("/locations", [LocationController::class, "add"]);
+    Route::post("/locations", [LocationController::class, "add"])->middleware(['isAdmin']);
 
     Route::put("/locations/{id}", [LocationController::class, "update"]);
 
