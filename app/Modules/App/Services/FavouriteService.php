@@ -8,7 +8,6 @@ use App\Modules\Core\Services\Service;
 class FavouriteService extends Service
 {
     protected $_rules = [
-        'user_id' => 'required|integer',
         'location_id' => 'required|integer',
     ];
 
@@ -25,9 +24,10 @@ class FavouriteService extends Service
             ->get();
     }
 
-    public function add($data)
+    public function add($location_id)
     {
-        $this->validate($data);
+        $this->validate($location_id);
+        $data['user_id'] = auth()->user()->id;
         if ($this->haserrors()) {
             return;
         }

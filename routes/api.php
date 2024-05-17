@@ -43,11 +43,11 @@ Route::middleware(['language'])->group(function () {
 
     //Favourites routes
     Route::get('/favourites/{id}', [FavouriteController::class, 'findByUser']);
-    Route::post('/favourites', [FavouriteController::class, 'add']);
+    Route::post('/favourites/{location_id}', [FavouriteController::class, 'add']);
     Route::delete('/favourites/{user_id}/{location_id}', [FavouriteController::class, 'delete']);
 
     //Owners routes
     Route::get('/owners/{id}', [OwnerController::class, 'findByUser']);
-    Route::post('/owners', [OwnerController::class, 'add']);
+    //Route::post('/owners', [OwnerController::class, 'add']);
     Route::delete('/owners/{user_id}/{location_id}', [OwnerController::class, 'delete']);
 });

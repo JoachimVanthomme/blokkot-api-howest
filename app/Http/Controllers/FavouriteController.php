@@ -20,10 +20,9 @@ class FavouriteController extends Controller
         return ["data"=>$data];
     }
 
-    public function add(Request $request)
+    public function add($location_id)
     {
-        $data = $request->all();
-        $favourite = $this->_service->add($data);
+        $favourite = $this->_service->add($location_id);
         if($this->_service->hasErrors()) {
             return ["errors"=>$this->_service->getErrors()];
         }
