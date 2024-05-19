@@ -3,6 +3,7 @@
 use App\Http\Controllers\FavouriteController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\OwnerController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -52,3 +53,8 @@ Route::middleware(['language'])->group(function () {
     //Route::post('/owners', [OwnerController::class, 'add']);
     Route::delete('/owners/{user_id}/{location_id}', [OwnerController::class, 'delete']);
 });
+
+Route::get('/users', [UserController::class, 'all']);
+Route::get('/admins', [UserController::class, 'admins']);
+Route::get('/developers', [UserController::class, 'developers']);
+
