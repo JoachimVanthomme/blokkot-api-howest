@@ -28,6 +28,8 @@ Route::get("/locations/most-locations", [LocationController::class, "mostLocatio
 
 Route::get("/cities", [LocationController::class, "allCities"]);
 
+Route::get('locations/languages/{id}', [LocationController::class, 'getAllLanguages']);
+
 //Route::middleware(['auth:sanctum','verified', 'language'])->group(function () {
 Route::middleware(['language'])->group(function () {
     //Locations routes
@@ -49,12 +51,13 @@ Route::middleware(['language'])->group(function () {
     Route::delete('/favourites/{user_id}/{location_id}', [FavouriteController::class, 'delete']);
 
     //Owners routes
-    Route::get('/owners/{id}', [OwnerController::class, 'findByUser']);
-    //Route::post('/owners', [OwnerController::class, 'add']);
-    Route::delete('/owners/{user_id}/{location_id}', [OwnerController::class, 'delete']);
+    Route::get('/owners/{id}', [OwnerController::class, 'findByUser'])->middleware(['isAdmin']);
+    Route::post('/owners', [OwnerController::class, 'add'])->middleware(['isDeveloper']);
+    Route::delete('/owners/{user_id}/{location_id}', [OwnerController::class, 'delete'])->middleware(['isAdmin']);
 });
 
-Route::get('/users', [UserController::class, 'all']);
-Route::get('/admins', [UserController::class, 'admins']);
-Route::get('/developers', [UserController::class, 'developers']);
+//Users routes (FOR DEV ONLY)
+Route::get('/users', [UserController::class, 'all'])->middleware(['isDeveloper']);
+Route::get('/admins', [UserController::class, 'admins'])->middleware(['isDeveloper']);
+Route::get('/developers', [UserController::class, 'developers'])->middleware(['isDeveloper']);
 

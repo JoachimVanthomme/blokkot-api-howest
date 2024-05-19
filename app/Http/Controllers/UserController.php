@@ -31,4 +31,14 @@ class UserController extends Controller
         $data = $this->_service->developers();
         return ["data"=>$data];
     }
+
+    public function update(Request $request, $id)
+    {
+        $data = $request->all();
+        $user = $this->_service->update($data, $id);
+        if($this->_service->hasErrors()) {
+            return ["errors"=>$this->_service->getErrors()];
+        }
+        return ["data"=>$user];
+    }
 }

@@ -135,4 +135,12 @@ class LocationService extends Service
     {
         return $this->_model->select('city')->groupBy('city')->get();
     }
+
+    public function getAllLanguages($id)
+    {
+        $data = $this->_model->with('locations_language')->find($id);
+        $data->languages = $data->locations_language;
+        unset($data->locations_language);
+        return $data;
+    }
 }

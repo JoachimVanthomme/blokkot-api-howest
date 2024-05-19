@@ -89,4 +89,10 @@ class LocationController extends Controller
         $data = $this->_service->allCities();
         return ["data"=>$data];
     }
+
+    public function getAllLanguages($id)
+    {
+        $data = $this->_service->getAllLanguages($id);
+        return ["data"=>$data];
+    }
 }
