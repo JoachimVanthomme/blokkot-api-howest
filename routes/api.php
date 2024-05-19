@@ -34,6 +34,7 @@ Route::middleware(['language'])->group(function () {
     Route::get("/locations/{id}", [LocationController::class, "find"]);
 
     Route::post("/locations", [LocationController::class, "add"])->middleware(['isAdmin']);
+    //Route::post("/locations", [LocationController::class, "add"]);
 
     Route::put("/locations/{id}", [LocationController::class, "update"]);
 
