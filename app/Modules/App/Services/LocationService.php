@@ -4,6 +4,7 @@ namespace App\Modules\App\Services;
 
 use App\Models\Location;
 use App\Models\Locations_language;
+use App\Models\Owner;
 use App\Modules\Core\Services\Service;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Storage;
@@ -21,14 +22,19 @@ class LocationService extends Service
         'info' => 'required|string',
         'is_reservation_mandatory' => 'required|boolean',
         'reservation_link' => 'required|string',
+        'is_active' => 'required|boolean',
+        'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        'languages' => 'required|array',
     ];
 
     private $_locations_languageModel;
+    private $_ownerModel;
 
     public function __construct(Location $model)
     {
         parent::__construct($model);
         $this->_locations_languageModel = new Locations_language();
+        $this->_ownerModel = new Owner();
     }
 
     public function all($pages)
@@ -82,6 +88,12 @@ class LocationService extends Service
                 'info' => $language['info'],
             ]);
         }
+
+        $this->_ownerModel->create([
+            'user_id' => auth()->user()->id,
+            'location_id' => $location->id,
+        ]);
+
         return [$location];
     }
 
@@ -95,6 +107,7 @@ class LocationService extends Service
         if (isset($data['image'])) {
             Storage::delete($this->_model->find($id)->image_path);
             $data['image_path'] = $data['image']->store();
+            Arr::forget($data, 'image');
         }
 
         $location = $this->_model->find($id)->update($data);
@@ -133,7 +146,7 @@ class LocationService extends Service
 
     public function allCities()
     {
-        return $this->_model->select('city')->groupBy('city')->get();
+        return $this->_model->select('city')->where('is_active', '=', true)->groupBy('city')->get();
     }
 
     public function getAllLanguages($id)
