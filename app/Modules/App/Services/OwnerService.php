@@ -18,9 +18,9 @@ class OwnerService extends Service
         parent::__construct($model);
     }
 
-    public function findByUser($id)
+    public function findByUser()
     {
-        return $this->_model->where('user_id', $id)
+        return $this->_model->where('user_id', auth()->user()->id)
             ->join('locations', 'owners.location_id', '=', 'locations.id')
             ->select('locations.*')
             ->get();

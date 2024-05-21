@@ -46,13 +46,13 @@ Route::middleware(['language'])->group(function () {
     Route::get("/locations-city/{city}", [LocationController::class, "findByCity"]);
 
     //Favourites routes
-    Route::get('/favourites/{id}', [FavouriteController::class, 'findByUser']);
+    Route::get('/favourites', [FavouriteController::class, 'findByUser']);
     Route::post('/favourites/{location_id}', [FavouriteController::class, 'add']);
-    Route::delete('/favourites/{user_id}/{location_id}', [FavouriteController::class, 'delete']);
+    Route::delete('/favourites/{location_id}', [FavouriteController::class, 'delete']);
 
     //Owners routes
-    Route::get('/owners/{id}', [OwnerController::class, 'findByUser'])->middleware(['isAdmin']);
-    Route::post('/owners', [OwnerController::class, 'add'])->middleware(['isDeveloper']);
+    Route::get('/owners', [OwnerController::class, 'findByUser'])->middleware(['isAdmin']);
+    //Route::post('/owners', [OwnerController::class, 'add'])->middleware(['isDeveloper']);
     Route::delete('/owners/{user_id}/{location_id}', [OwnerController::class, 'delete'])->middleware(['isAdmin']);
 });
 

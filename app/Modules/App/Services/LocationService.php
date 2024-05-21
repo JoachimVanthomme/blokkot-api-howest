@@ -52,7 +52,11 @@ class LocationService extends Service
 
     public function findByCity($city)
     {
-        return $this->_model->where('city', 'LIKE', "%{$city}%")->get();
+        return $this->_model
+            ->where([['city', 'LIKE', "%{$city}%"],['is_active', '=', true]])
+            ->orwhere([['name', 'LIKE', "%{$city}%"],['is_active', '=', true]])
+            ->paginate(10)
+            ->withQueryString();
     }
 
     public function add($data)

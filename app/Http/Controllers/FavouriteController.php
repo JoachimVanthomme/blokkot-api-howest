@@ -14,9 +14,9 @@ class FavouriteController extends Controller
         $this->_service = $service;
     }
 
-    public function findByUser($id)
+    public function findByUser()
     {
-        $data = $this->_service->findByUser($id);
+        $data = $this->_service->findByUser();
         return ["data"=>$data];
     }
 
@@ -29,9 +29,9 @@ class FavouriteController extends Controller
         return ["data"=>$favourite];
     }
 
-    public function delete($user_id, $location_id)
+    public function delete($location_id)
     {
-        $favourite = $this->_service->delete($user_id, $location_id);
+        $favourite = $this->_service->delete($location_id);
         if($this->_service->hasErrors()) {
             return ["errors"=>$this->_service->getErrors()];
         }

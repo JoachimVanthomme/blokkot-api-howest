@@ -16,9 +16,10 @@ class FavouriteService extends Service
         parent::__construct($model);
     }
 
-    public function findByUser($id)
+    public function findByUser()
     {
-        return $this->_model->where('user_id', $id)
+        return $this->_model->where('user_id', auth()->user()->id)
+        //return $this->_model->where('user_id', 10)
             ->join('locations', 'favourites.location_id', '=', 'locations.id')
             ->select('locations.*')
             ->get();
@@ -47,12 +48,12 @@ class FavouriteService extends Service
 
     public function delete($user_id, $location_id)
     {
-        if ($this->_model->where('user_id', $user_id)->where('location_id', $location_id)->doesntExist()) {
+        if ($this->_model->where('user_id', auth()->user()->id)->where('location_id', $location_id)->doesntExist()) {
             return ['error' => "Combination of user and location does not exist."];
         }
 
         try {
-            $favourite = $this->_model->where('user_id', $user_id)->where('location_id', $location_id)->delete();
+            $favourite = $this->_model->where('user_id', auth()->user()->id)->where('location_id', $location_id)->delete();
         } catch (\Exception $e) {
             return ['error' => "An error occurred, please try again later or contact the administrator."];
         }

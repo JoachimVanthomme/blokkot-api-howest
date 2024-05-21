@@ -14,9 +14,9 @@ class OwnerController extends Controller
         $this->_service = $service;
     }
 
-    public function findByUser($id)
+    public function findByUser()
     {
-        $data = $this->_service->findByUser($id);
+        $data = $this->_service->findByUser();
         return ["data"=>$data];
     }
 
