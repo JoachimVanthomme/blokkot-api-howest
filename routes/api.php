@@ -53,7 +53,7 @@ Route::middleware(['language'])->group(function () {
     //Owners routes
     Route::get('/owners', [OwnerController::class, 'findByUser'])->middleware(['isAdmin']);
     //Route::post('/owners', [OwnerController::class, 'add'])->middleware(['isDeveloper']);
-    Route::delete('/owners/{user_id}/{location_id}', [OwnerController::class, 'delete'])->middleware(['isAdmin']);
+    Route::delete('/owners/{location_id}', [OwnerController::class, 'delete'])->middleware(['isAdmin']);
 });
 
 //Users routes (FOR DEV ONLY)

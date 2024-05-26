@@ -27,8 +27,9 @@ class FavouriteService extends Service
 
     public function add($location_id)
     {
-        $this->validate($location_id);
         $data['user_id'] = auth()->user()->id;
+        $data['location_id'] = $location_id;
+        $this->validate($data);
         if ($this->haserrors()) {
             return;
         }
@@ -38,7 +39,7 @@ class FavouriteService extends Service
         }
 
         try {
-            $favourite = $this->_model->create($data);
+            $favourite = $this->_model->create(['user_id' => $data['user_id'], 'location_id' => $data['location_id']]);
         } catch (\Exception $e) {
             return ['error' => "An error occurred, please try again later or contact the administrator."];
         }
@@ -46,7 +47,7 @@ class FavouriteService extends Service
         return $favourite;
     }
 
-    public function delete($user_id, $location_id)
+    public function delete($location_id)
     {
         if ($this->_model->where('user_id', auth()->user()->id)->where('location_id', $location_id)->doesntExist()) {
             return ['error' => "Combination of user and location does not exist."];

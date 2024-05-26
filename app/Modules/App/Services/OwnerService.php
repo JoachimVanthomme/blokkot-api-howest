@@ -49,12 +49,12 @@ class OwnerService extends Service
 
     public function delete($user_id, $location_id)
     {
-        if ($this->_model->where('user_id', $user_id)->where('location_id', $location_id)->doesntExist()) {
+        if ($this->_model->where('user_id', auth()->user()->id)->where('location_id', $location_id)->doesntExist()) {
             return ['error' => "Combination of user and location does not exist."];
         }
 
         try {
-            $owner = $this->_model->where('user_id', $user_id)->where('location_id', $location_id)->delete();
+            $owner = $this->_model->where('user_id', auth()->user()->id)->where('location_id', $location_id)->delete();
         } catch (\Exception $e) {
             return ['error' => "An error occurred, please try again later or contact the administrator."];
         }
