@@ -18,12 +18,13 @@ class OwnerService extends Service
         parent::__construct($model);
     }
 
-    public function findByUser()
+    public function findByUser($pages)
     {
         return $this->_model->where('user_id', auth()->user()->id)
             ->join('locations', 'owners.location_id', '=', 'locations.id')
             ->select('locations.*')
-            ->get();
+            ->paginate($pages)
+            ->withQueryString();
     }
 
     public function add($data)
