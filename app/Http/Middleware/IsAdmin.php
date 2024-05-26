@@ -15,10 +15,10 @@ class IsAdmin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if ($request->user() && $request->user()->is_admin) {
+        if (auth()->user() && (auth()->user()->is_admin || auth()->user()->is_developer)) {
             return $next($request);
         }
 
-        return response()->json(['message' => 'You are not an admin.'], 401);
+        return response()->json(['message' => 'You do not have access to these features.'], 401);
     }
 }

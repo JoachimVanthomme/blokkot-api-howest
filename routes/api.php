@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
-    return $request->user();
+    return auth()->user();
 });
 
 Route::get("/images/{image_path}", [LocationController::class, "findImageByName"]); //get an image by name
@@ -33,7 +33,7 @@ Route::get('locations/languages/{id}', [LocationController::class, 'getAllLangua
 //Route::middleware(['auth:sanctum','verified', 'language'])->group(function () {
 Route::middleware(['language'])->group(function () {
     //Locations routes
-    Route::get("/locations", [LocationController::class, "all"]); //only show language dependant data on detail request
+    Route::get("/locations", [LocationController::class, "all"])->middleware(['isAdmin']); //only show language dependant data on detail request
     Route::get("/locations/{id}", [LocationController::class, "find"]);
 
     Route::post("/locations", [LocationController::class, "add"])->middleware(['isAdmin']);
